@@ -14,10 +14,14 @@ POSTGRES_PASSWORD=pwd
 ```
 Create network
 `docker network create app-network`
+
 Run the postgres database
 `docker run -p 5432:5432 --name postgres-database --network=app-network database`
+
+
 Run adminer
 `docker run --network=app-network --name adminer -p 8080:8080 adminer`
+
 __Question__ : Why should we run the container with a flag -e to give the environment variables ? 
 __Réponse__ : Cela permet plus de souplesse car on peut initialiser nos variables d'environnements nous même
 
