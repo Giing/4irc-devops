@@ -1,4 +1,4 @@
-FROM openjdk:11-alpine
+FROM openjdk:16-alpine3.13
 COPY ./src /usr/src/api
-RUN java Main
+WORKDIR "/usr/src/api"
 CMD ["java", "Main"]
