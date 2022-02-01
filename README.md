@@ -160,3 +160,15 @@ __Réponse__ : Les testcontainers sont des librairies java qui permettent de lan
 __Question__ : For what purpose do we need to push docker images?
 
 __Réponse__ : 
+
+## Setup quality gate
+
+Il faut ajouter l'action suivant : 
+```
+- name: Analyze with Sonar # Nouvelle tâche pour sonar
+        env: # Définition des variables d'environnements
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}} # GITHUB_TOKEN est un token automatiquement créé par github
+          SONAR_TOKEN: ${{secrets.SONAR_TOKEN }}
+        # exécution de la commande  
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=Giing_4irc-devops -Dsonar.organization=giing -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{secrets.SONAR_TOKEN }} --file ./simple-api-main/simple-api/pom.xml
+```
