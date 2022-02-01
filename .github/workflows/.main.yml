@@ -20,4 +20,4 @@ jobs:
           distribution: 'temurin'
       #finally build your app with the latest command
       - name: Build and test with Maven
-        run: maven clean verify
+        run: mvn clean verify
