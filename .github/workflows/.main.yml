@@ -18,10 +18,14 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+      - name: Analyze with Sonar
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          SONAR_TOKEN: ${{secrets.SONAR_TOKEN }}
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=Giing_4irc-devops -Dsonar.organization=giing -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{secrets.SONAR_TOKEN }} --file ./simple-api-main/simple-api/pom.xml
       #finally build your app with the latest command
       - name: Build and test with Maven
-        run: mvn -B verify sonar:sonar -Dsonar.projectKey=Giing_4irc-devops -Dsonar.organization=giing -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{secrets.SONAR_TOKEN }} --file ./simple-api-main/simple-api/pom.xml
-        # run: mvn clean verify --file ./simple-api-main/simple-api -DskipTests # Temporary test skipping
+        run: mvn clean verify --file ./simple-api-main/simple-api -DskipTests # Temporary test skipping
   # define job to build and publish docker image
   build-and-push-docker-image:
     needs: test-backend
