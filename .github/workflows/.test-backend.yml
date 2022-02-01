@@ -1,4 +1,10 @@
 name: TEST BACKEND
+on: #to begin you want to launch this job in main and develop
+  push:
+    branches: # le workflow se lance quand on push sur les branches main et develop
+      - main
+      - develop
+  pull_request:
 jobs:
   test-backend:
     runs-on: ubuntu-18.04 # on lance l workflow sur ubuntu 18.04
@@ -20,3 +26,73 @@ jobs:
           SONAR_TOKEN: ${{secrets.SONAR_TOKEN }}
         # exécution de la commande  
         run: mvn -B verify sonar:sonar -Dsonar.projectKey=Giing_4irc-devops -Dsonar.organization=giing -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{secrets.SONAR_TOKEN }} --file ./simple-api-main/simple-api/pom.xml
+
+name: BUILD AND PUSH IMAGE
+on: #to begin you want to launch this job in main and develop
+  workflow_run:
+    workflows: ["TEST BACKEND"]
+    type:
+      - complete
+    push:
+      branches: # le workflow se lance quand on push sur les branches main et develop
+        - main
+jobs:
+  # define job to build and publish docker database image
+  build-and-push-database:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./database
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{secrets.DOCKERHUB_PASSWORD }}
+      - name: Build image and push backend
+        uses: docker/build-push-action@v2
+        with:
+          # relative path to the place where source code with Dockerfile is located
+          context: ./database
+          # Note: tags has to be all lower-case
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/postgres-database:latest
+          # build on feature branches, push only on main branch
+          push: ${{ github.ref == 'refs/heads/main' }}
+
+  # define job to build and publish docker simple-api image
+  build-and-push-simple-api:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./simple-api-main/simple-api
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{secrets.DOCKERHUB_PASSWORD }}
+      - name: Build image and push simple-api
+        uses: docker/build-push-action@v2
+        with:
+          # relative path to the place where source code with Dockerfile is located
+          context: ./simple-api-main/simple-api
+          # Note: tags has to be all lower-case
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/simple-api-main:latest
+          # build on feature branches, push only on main branch
+          push: ${{ github.ref == 'refs/heads/main' }}
+
+  # define job to build and publish docker simple-api image
+  build-and-push-http-server:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./httpl-server
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{secrets.DOCKERHUB_PASSWORD }}
+      - name: Build image and push http-server
+        uses: docker/build-push-action@v2
+        with:
+          # relative path to the place where source code with Dockerfile is located
+          context: ./simple-api-main/simple-api
+          # Note: tags has to be all lower-case
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/http-server:latest
+          # build on feature branches, push only on main branch
+          push: ${{ github.ref == 'refs/heads/main' }}
