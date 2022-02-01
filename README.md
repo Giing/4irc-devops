@@ -69,4 +69,78 @@ On utilise un multistage build pour compiler notre application java dans un prem
 ### HTTP Server
 Pour rapatrier un fichier du container
 
-`docker cp http-server:/usr/local/apache2/conf/httpd.conf .` 
+`docker cp http-server:/usr/local/apache2/conf/httpd.conf .`
+
+#### Reverse proxy
+
+Il faut ajouter dans notre fichier httpd.conf le codes suivant :
+
+```
+ServerName localhost
+
+<VirtualHost *:80>
+    ProxyPreserveHost On
+    ProxyPass / http://simple-api-main:8080/
+    ProxyPassReverse / http://simple-api-main:8080/
+</VirtualHost>
+```
+
+et décommenter les lignes suivantes :
+```
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+```
+_Attention_ : Il faut que la base de données, l'api et le serveur http soit sur le même réseau. Ne pas oublier `--network=app-network`
+
+__Question__ : Why do we need a reverse proxy ?
+
+__Réponse__ : On utilise un reverse proxy our exposer certaines ressources de notre serveur. On veut qu'un utilisateur extérieur puisse accéder à notre api mais pas à notre base de données.
+## Link application
+#### Docker compose
+
+__Question__ : Why is docker-compose so important ?
+
+__Réponse__ : Docker compose permet de build plusieurs image et de lancer plusieurs container via une seule commande et un seul fichier de conf. 
+
+__Most important commands__:
+- `docker-compose up` : build et crée les images et démarre les containers pour tous les services listés dans le docker-compose.yml
+- `docker-compose down` : stop et supprime les containers démarrés
+
+```
+version: '3.3'
+services:
+  simple-api-main:
+    build: ./simple-api-main/simple-api # dossier cible pour build l'image (où se trouve le dockerfile)
+    networks: # réseau lié au container
+      - app-network
+    depends_on: # dépends de la base de données pour être lancé
+      - postgres-database
+  postgres-database:
+    build: ./database # dossier cible pour build l'image
+    networks: # réseau lié au container
+      - app-network 
+  httpd: 
+    build: ./http_server # dossier cible pour build l'image
+    ports: # liste des ports à exposer
+      - "80:80"
+    networks: # réseau lié au container
+      - app-network
+    depends_on: # dépends de simple-api-main pour être lancé
+      - simple-api-main
+networks: # liste des réseaux
+  app-network:
+```
+
+### Publish
+- database
+`docker tag 4ircdevops_postgres-database giing/postgres-database:1.0`
+`docker push giing/postgres-database:1.0`
+__link__ : https://hub.docker.com/repository/docker/giing/postgres-database
+- api
+`docker tag 4ircdevops_simple-api-main giing/simple-api-main:1.0`
+`docker push giing/simple-api-main:1.0`
+__link__ : https://hub.docker.com/repository/docker/giing/simple-api-main
+- http server
+`docker tag 4ircdevops_httpd giing/http-server:1.0`
+`docker push giing/http-server:1.0`
+__link__ : https://hub.docker.com/repository/docker/giing/http-server

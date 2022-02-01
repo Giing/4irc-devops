@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  simple-api-main:
+    build: ./simple-api-main/simple-api # dossier cible pour build l'image (où se trouve le dockerfile)
+    networks: # réseau lié au container
+      - app-network
+    depends_on: # dépends de la base de données pour être lancé
+      - postgres-database
+  postgres-database:
+    build: ./database # dossier cible pour build l'image
+    networks: # réseau lié au container
+      - app-network 
+  httpd: 
+    build: ./http_server # dossier cible pour build l'image
+    ports: # liste des ports à exposer
+      - "80:80"
+    networks: # réseau lié au container
+      - app-network
+    depends_on: # dépends de simple-api-main pour être lancé
+      - simple-api-main
+networks: # liste des réseaux
+  app-network:
