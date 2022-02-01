@@ -39,10 +39,14 @@ jobs:
           tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe:simple-api
 
       - name: Build image and push database
-          context: ../../database
+        uses: docker/build-push-action@v2
+        with:
+          context: ./database
           tags: ${{secrets.DOCKERHUB_USERNAME}}/postgres-database:latest
       # DO the same for database
       - name: Build image and push httpd
+        uses: docker/build-push-action@v2
+        with:
           context: ./http-server
           tags: ${{secrets.DOCKERHUB_USERNAME}}/http-server:latest
       # DO the same for httpd
