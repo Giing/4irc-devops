@@ -4,6 +4,7 @@ on: #to begin you want to launch this job in main and develop
     branches: # le workflow se lance quand on push sur les branches main et develop
       - main
       - develop
+      - tp2-going-further
   pull_request:
 jobs:
   test-backend:
