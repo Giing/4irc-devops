@@ -39,7 +39,7 @@ jobs:
           tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe:simple-api
 
       - name: Build image and push database
-          context: ./database
+          context: ../../database
           tags: ${{secrets.DOCKERHUB_USERNAME}}/postgres-database:latest
       # DO the same for database
       - name: Build image and push httpd
