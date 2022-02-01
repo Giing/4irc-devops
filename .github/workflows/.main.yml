@@ -9,6 +9,8 @@ on: #to begin you want to launch this job in main and develop
 jobs:
   test-backend:
     runs-on: ubuntu-18.04 # on lance l workflow sur ubuntu 18.04
+    env:
+      working-directory: ./simple-api-main/simple-api
     steps:
       #checkout your github code using actions/checkout@v2.3.3
       - uses: actions/checkout@v2.3.3

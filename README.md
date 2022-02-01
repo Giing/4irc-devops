@@ -172,3 +172,6 @@ Il faut ajouter l'action suivant :
         # exécution de la commande  
         run: mvn -B verify sonar:sonar -Dsonar.projectKey=Giing_4irc-devops -Dsonar.organization=giing -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{secrets.SONAR_TOKEN }} --file ./simple-api-main/simple-api/pom.xml
 ```
+
+## Going further: Split pipeline (Optional)
+
