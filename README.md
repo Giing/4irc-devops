@@ -135,12 +135,12 @@ networks: # liste des réseaux
 - database
 `docker tag 4ircdevops_postgres-database giing/postgres-database:1.0`
 `docker push giing/postgres-database:1.0`
-__link__ : https://hub.docker.com/repository/docker/giing/postgres-database
+__link__ : https://hub.docker.com/r/giing/postgres-database
 - api
 `docker tag 4ircdevops_simple-api-main giing/simple-api-main:1.0`
 `docker push giing/simple-api-main:1.0`
-__link__ : https://hub.docker.com/repository/docker/giing/simple-api-main
+__link__ : https://hub.docker.com/r/giing/simple-api-main
 - http server
 `docker tag 4ircdevops_httpd giing/http-server:1.0`
 `docker push giing/http-server:1.0`
-__link__ : https://hub.docker.com/repository/docker/giing/http-server
+__link__ : https://hub.docker.com/r/giing/http-server
