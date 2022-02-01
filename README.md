@@ -150,3 +150,8 @@ __link__ : https://hub.docker.com/r/giing/simple-api-main
 `docker tag 4ircdevops_httpd giing/http-server:1.0`
 `docker push giing/http-server:1.0`
 __link__ : https://hub.docker.com/r/giing/http-server
+
+# TP 2
+
+__Question__ : What are testcontainers?
+__Réponse__ : Les testcontainers sont des librairies java qui permettent de lancer des containers docker pendant les tests.
