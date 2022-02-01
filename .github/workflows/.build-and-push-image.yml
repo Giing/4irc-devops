@@ -11,7 +11,6 @@ on: #to begin you want to launch this job in main and develop
 jobs:
   # define job to build and publish docker database image
   build-and-push-database:
-    needs: test-backend
     runs-on: ubuntu-latest
     env:
       working-directory: ./database
@@ -32,7 +31,6 @@ jobs:
 
   # define job to build and publish docker simple-api image
   build-and-push-simple-api:
-    needs: test-backend
     runs-on: ubuntu-latest
     env:
       working-directory: ./simple-api-main/simple-api
@@ -53,7 +51,6 @@ jobs:
 
   # define job to build and publish docker simple-api image
   build-and-push-http-server:
-    needs: test-backend
     runs-on: ubuntu-latest
     env:
       working-directory: ./httpl-server
