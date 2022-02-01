@@ -1,10 +1,16 @@
 
 # CI/CD - DevOps
 
-## TP 1
+# TP 1
+
+## Summary
+1.Database
+2.Backend API
+3.HTTP server
+4.Link application
 
 ### Database
-Dockerfile 
+#### Dockerfile 
 ```
 FROM postgres:11.6-alpine
 
@@ -12,7 +18,7 @@ ENV POSTGRES_DB=db \
 POSTGRES_USER=usr \
 POSTGRES_PASSWORD=pwd
 ```
-Create network
+#### Create network
 `docker network create app-network`
 Run the postgres database
 `docker run -p 5432:5432 --name postgres-database --network=app-network database`
@@ -95,7 +101,7 @@ _Attention_ : Il faut que la base de données, l'api et le serveur http soit sur
 __Question__ : Why do we need a reverse proxy ?
 
 __Réponse__ : On utilise un reverse proxy our exposer certaines ressources de notre serveur. On veut qu'un utilisateur extérieur puisse accéder à notre api mais pas à notre base de données.
-## Link application
+### Link application
 #### Docker compose
 
 __Question__ : Why is docker-compose so important ?
@@ -131,7 +137,7 @@ networks: # liste des réseaux
   app-network:
 ```
 
-### Publish
+#### Publish
 - database
 `docker tag 4ircdevops_postgres-database giing/postgres-database:1.0`
 `docker push giing/postgres-database:1.0`
