@@ -2,11 +2,10 @@ name: BUILD AND PUSH IMAGE
 on: #to begin you want to launch this job in main and develop
   workflow_run:
     workflows: ["TEST BACKEND"]
-    type:
-      - complete
-    push:
-      branches: # le workflow se lance quand on push sur les branches main et develop
+    branches: # le workflow se lance quand on push sur les branches main et develop
         - main
+    types:
+      - completed
 jobs:
   # define job to build and publish docker database image
   build-and-push-database:
