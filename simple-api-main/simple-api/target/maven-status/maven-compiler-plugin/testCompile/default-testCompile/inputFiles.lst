@@ -1,4 +1,4 @@
-/fs03/share/users/baptiste.lazareth/home/Documents/DevOps/4irc-devops/simple-api-main/simple-api/src/test/java/fr/takima/training/sampleapplication/IT/StudentControllerTestIT.java
-/fs03/share/users/baptiste.lazareth/home/Documents/DevOps/4irc-devops/simple-api-main/simple-api/src/test/java/fr/takima/training/sampleapplication/IT/DepartmentControllerTestIT.java
-/fs03/share/users/baptiste.lazareth/home/Documents/DevOps/4irc-devops/simple-api-main/simple-api/src/test/java/fr/takima/training/sampleapplication/unit/DepartmentsServiceTest.java
-/fs03/share/users/baptiste.lazareth/home/Documents/DevOps/4irc-devops/simple-api-main/simple-api/src/test/java/fr/takima/training/sampleapplication/unit/StudentsServiceTest.java
+/fs03/share/users/baptiste.lazareth/home/Documents/DevOps/4irc-devops/./simple-api-main/simple-api/src/test/java/fr/takima/training/sampleapplication/unit/StudentsServiceTest.java
+/fs03/share/users/baptiste.lazareth/home/Documents/DevOps/4irc-devops/./simple-api-main/simple-api/src/test/java/fr/takima/training/sampleapplication/unit/DepartmentsServiceTest.java
+/fs03/share/users/baptiste.lazareth/home/Documents/DevOps/4irc-devops/./simple-api-main/simple-api/src/test/java/fr/takima/training/sampleapplication/IT/DepartmentControllerTestIT.java
+/fs03/share/users/baptiste.lazareth/home/Documents/DevOps/4irc-devops/./simple-api-main/simple-api/src/test/java/fr/takima/training/sampleapplication/IT/StudentControllerTestIT.java
