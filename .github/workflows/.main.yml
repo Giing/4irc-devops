@@ -50,3 +50,5 @@ jobs:
           context: ./http_server
           tags: ${{secrets.DOCKERHUB_USERNAME}}/http-server:latest
       # DO the same for httpd
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{secrets.DOCKERHUB_PASSWORD }}
