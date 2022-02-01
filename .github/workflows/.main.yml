@@ -9,6 +9,7 @@ on: #to begin you want to launch this job in main and develop
 jobs:
   test-backend:
     runs-on: ubuntu-18.04 # on lance l workflow sur ubuntu 18.04
+    # On ne lance les tests que quand il y a des changements dans simple-api
     env:
       working-directory: ./simple-api-main/simple-api
     steps:
