@@ -4,10 +4,9 @@ on: #to begin you want to launch this job in main and develop
     workflows: ["TEST BACKEND"]
     type:
       - complete
-  push:
-    branches: # le workflow se lance quand on push sur les branches main et develop
-      - main
-  pull_request:
+    push:
+      branches: # le workflow se lance quand on push sur les branches main et develop
+        - main
 jobs:
   # define job to build and publish docker database image
   build-and-push-database:

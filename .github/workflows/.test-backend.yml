@@ -1,10 +1,4 @@
 name: TEST BACKEND
-on: #to begin you want to launch this job in main and develop
-  push:
-    branches: # le workflow se lance quand on push sur les branches main et develop
-      - main
-      - develop
-  pull_request:
 jobs:
   test-backend:
     runs-on: ubuntu-18.04 # on lance l workflow sur ubuntu 18.04
