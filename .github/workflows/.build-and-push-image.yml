@@ -1,3 +1,6 @@
+# 
+# Workflow appelé quand le workflow TEST BACKEND est completé
+#
 name: BUILD AND PUSH IMAGE
 on: #to begin you want to launch this job in main and develop
   workflow_run:
