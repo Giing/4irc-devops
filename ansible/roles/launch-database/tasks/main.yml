@@ -1,0 +1,6 @@
+- name: Create database
+  docker_container:
+    name: postgres-database
+    image: giing/postgres-database
+    networks:
+      - name: app-network

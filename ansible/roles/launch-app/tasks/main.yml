@@ -1,2 +1,6 @@
----
-# tasks file for roles/launch-app
+- name: Launch app
+  docker_container:
+    name: simple-api-main
+    image: giing/simple-api-main
+    networks:
+      - name: app-network

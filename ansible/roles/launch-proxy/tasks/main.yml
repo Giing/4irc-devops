@@ -1,2 +1,8 @@
----
-# tasks file for roles/launch-proxy
+- name: Launch proxy
+  docker_container:
+    name: httpd
+    image: giing/http-server:latest
+    networks:
+      - name: app-network
+    ports:
+      - "80:80"

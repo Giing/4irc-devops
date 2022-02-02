@@ -6,6 +6,12 @@ services:
       - app-network
     depends_on: # dépends de la base de données pour être lancé
       - postgres-database
+  front:
+    build: ./devops-front-main
+    networks:
+      - app-network
+    depends_on:
+      - simple-api-main
   postgres-database:
     build: ./database # dossier cible pour build l'image
     networks: # réseau lié au container
