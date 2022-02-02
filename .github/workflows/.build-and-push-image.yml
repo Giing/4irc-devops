@@ -70,7 +70,7 @@ jobs:
   build-and-push-http-server:
     runs-on: ubuntu-latest
     env:
-      working-directory: ./http-server
+      working-directory: ./http_server
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
