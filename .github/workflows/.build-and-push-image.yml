@@ -70,7 +70,7 @@ jobs:
   build-and-push-http-server:
     runs-on: ubuntu-latest
     env:
-      working-directory: ./httpl-server
+      working-directory: ./http-server
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -80,7 +80,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           # relative path to the place where source code with Dockerfile is located
-          context: ./simple-api-main/simple-api
+          context: ./http-server
           # Note: tags has to be all lower-case
           tags: ${{secrets.DOCKERHUB_USERNAME}}/http-server:latest
           # build on feature branches, push only on main branch
