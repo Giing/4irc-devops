@@ -49,6 +49,8 @@ jobs:
   
   build-and-push-front:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./devops-front-main
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
