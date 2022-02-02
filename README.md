@@ -159,7 +159,7 @@ __Réponse__ : Les testcontainers sont des librairies java qui permettent de lan
 
 __Question__ : For what purpose do we need to push docker images?
 
-__Réponse__ : 
+__Réponse__ : Pour versionner les versions fonctionnelles et pouvoir les récupérer n'importe où
 
 ## Setup quality gate
 
@@ -175,3 +175,84 @@ Il faut ajouter l'action suivant :
 
 ## Going further: Split pipeline (Optional)
 
+On crée deux fichiers. Un premier test-backend.yml et un deuxième build-and-push-images.yml qui sera lancé si test-backend passe.
+```
+name: BUILD AND PUSH IMAGE
+on: 
+  # indique que le workflow sera lancé par un autre workflow
+  workflow_run:
+    workflows: ["TEST BACKEND"]
+    branches: # le workflow se lance quand on push sur les branches main et develop
+        - main
+    # le workflow est lancé si le test-backend est complété
+    types:
+      - completed
+```
+
+# TP 3
+
+## Intro
+
+```
+all:
+  vars:
+    ansible_user: centos # compte utilisateur
+    ansible_ssh_private_key_file: ./id_rsa # chemin vers la clef privée
+  children:
+    prod:
+      hosts: baptiste.lazareth.takima.cloud # nom du serveur
+```
+```
+# changer de distribution
+    ansible all -i inventories/setup.yml -m setup -a "filter=ansible_distribution*"
+    
+# supprimer / installer apache
+    ansible all -i inventories/setup.yml -m yum -a "name=httpd state=[present | absent]" --become
+```
+
+## Playbooks
+
+Main playbook
+```
+- hosts: all
+  gather_facts: false
+  become: yes # élevation de privilège
+  # liste des rôles à appeler
+  roles:
+    # - docker
+    - create-network
+    - launch-database
+    - launch-app
+    - launch-front
+    - launch-proxy
+```
+
+Role 
+```
+# nom du rôle
+- name: Launch app
+# pull l'image et lance un container docker
+  docker_container:
+    # nom à donner au container
+    name: simple-api-main
+    # nom de l'image à pull
+    image: giing/simple-api-main
+    # nom du réseau auquel le container fera parti
+    networks:
+      - name: app-network
+```
+
+## Front
+Dans httpd.conf
+```
+ServerName localhost
+
+<VirtualHost *:80>
+    ProxyPreserveHost On
+    ProxyPass /api http://simple-api-main:8080/
+    ProxyPassReverse /api http://simple-api-main:8080/
+    ProxyPass / http://front:80/
+    ProxyPassReverse / http://front:80/
+</VirtualHost>
+
+```

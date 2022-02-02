@@ -1,9 +1,11 @@
 name: BUILD AND PUSH IMAGE
-on: #to begin you want to launch this job in main and develop
+on: 
+  # indique que le workflow sera lancé par un autre workflow
   workflow_run:
     workflows: ["TEST BACKEND"]
     branches: # le workflow se lance quand on push sur les branches main et develop
         - main
+    # le workflow est lancé si le test-backend est complété
     types:
       - completed
 jobs:
