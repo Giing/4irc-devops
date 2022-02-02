@@ -6,5 +6,6 @@
     - create-network
     - launch-database
     - launch-app
+    - launch-front
     - launch-proxy
   

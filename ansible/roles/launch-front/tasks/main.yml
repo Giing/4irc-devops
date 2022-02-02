@@ -1,0 +1,6 @@
+- name: Launch front
+  docker_container:
+    name: front
+    image: giing/front
+    networks:
+      - name: app-network
