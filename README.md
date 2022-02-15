@@ -26,7 +26,8 @@ ENV POSTGRES_DB=db \
 POSTGRES_USER=usr \
 POSTGRES_PASSWORD=pwd
 ```
-### Create network
+
+#### Create network
 
 `docker network create app-network`
 
