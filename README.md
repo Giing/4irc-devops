@@ -66,7 +66,7 @@ CMD ["java", "Main"]
 ```
 `docker build -t api-backend .`
 
-`docker run --name backend-api -it api-backend`
+`docker run -p 8080:8080 --network app-network --name backend-api api-backend`
 
 __Question__ : Why do we need a multistage build ? And explain each steps of this dockerfile
 __Réponse__ : 
