@@ -69,7 +69,9 @@ CMD ["java", "Main"]
 `docker run -p 8080:8080 --network app-network --name backend-api api-backend`
 
 __Question__ : Why do we need a multistage build ? And explain each steps of this dockerfile
-__Réponse__ : 
+
+__Réponse__ : Cela nous évite de stocker les jdk et tout ce qu'il faut pour compiler notre application sur notre container. On compile donc sur un container puis on lance l'application sur un autre.
+
 ```dockerfile
 # Build
 FROM maven:3.6.3-jdk-11 AS myapp-build
@@ -176,6 +178,7 @@ __Réponse__ : Les testcontainers sont des librairies java qui permettent de lan
 __Question__ : For what purpose do we need to push docker images?
 
 __Réponse__ : Pour versionner les versions fonctionnelles et pouvoir les récupérer n'importe où
+
 
 ## Setup quality gate
 
