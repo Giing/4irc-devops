@@ -4,9 +4,13 @@
 # TP 1
 
 ## Summary
+
 1.Database
+
 2.Backend API
+
 3.HTTP server
+
 4.Link application
 
 ### Database
