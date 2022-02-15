@@ -19,7 +19,7 @@
 #### Dockerfile 
 
 
-```
+```dockerfile
 FROM postgres:11.6-alpine
 
 ENV POSTGRES_DB=db \
@@ -44,7 +44,7 @@ __Question__ : Why should we run the container with a flag -e to give the enviro
 __Réponse__ : Cela permet plus de souplesse car on peut initialiser nos variables d'environnements nous même
 
 Pour que nos scripts sql s'exécutent au démarrage il faut que nos scripts se trouvent dans le dossier `/docker-entrypoint-initdb.d`. Il faut modifier le dockerfile comme suivant :
-```
+```dockerfile
 FROM postgres:11.6-alpine
 COPY ./scripts /docker-entrypoint-initdb.d
 
@@ -70,7 +70,7 @@ CMD ["java", "Main"]
 
 __Question__ : Why do we need a multistage build ? And explain each steps of this dockerfile
 __Réponse__ : 
-```
+```dockerfile
 # Build
 FROM maven:3.6.3-jdk-11 AS myapp-build
 ENV MYAPP_HOME /opt/myapp
@@ -128,7 +128,7 @@ __Most important commands__:
 - `docker-compose up` : build et crée les images et démarre les containers pour tous les services listés dans le docker-compose.yml
 - `docker-compose down` : stop et supprime les containers démarrés
 
-```
+```yaml
 version: '3.3'
 services:
   simple-api-main:
@@ -180,7 +180,7 @@ __Réponse__ : Pour versionner les versions fonctionnelles et pouvoir les récup
 ## Setup quality gate
 
 Il faut ajouter l'action suivant : 
-```
+```yaml
 - name: Analyze with Sonar # Nouvelle tâche pour sonar
         env: # Définition des variables d'environnements
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}} # GITHUB_TOKEN est un token automatiquement créé par github
@@ -192,7 +192,7 @@ Il faut ajouter l'action suivant :
 ## Going further: Split pipeline (Optional)
 
 On crée deux fichiers. Un premier test-backend.yml et un deuxième build-and-push-images.yml qui sera lancé si test-backend passe.
-```
+```yaml
 name: BUILD AND PUSH IMAGE
 on: 
   # indique que le workflow sera lancé par un autre workflow
@@ -209,7 +209,7 @@ on:
 
 ## Intro
 
-```
+```yaml
 all:
   vars:
     ansible_user: centos # compte utilisateur
@@ -229,7 +229,7 @@ all:
 ## Playbooks
 
 Main playbook
-```
+```yaml
 - hosts: all
   gather_facts: false
   become: yes # élevation de privilège
@@ -244,7 +244,7 @@ Main playbook
 ```
 
 Role 
-```
+```yaml
 # nom du rôle
 - name: Launch app
 # pull l'image et lance un container docker
